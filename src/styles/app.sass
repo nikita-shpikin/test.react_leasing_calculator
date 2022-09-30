@@ -1,0 +1,112 @@
+@font-face 
+    font-family: 'Nekst'
+    src: local('Nekst Black'), local('Nekst-Black'), 
+    src: url('../fonts/Nekst/Nekst-Black.woff2') format('woff2'),
+    src: url('../fonts/Nekst/Nekst-Black.woff') format('woff'),
+    src: url('../fonts/Nekst/Nekst-Black.ttf') format('truetype'),
+    font-weight: 900,
+    font-style: normal
+  
+@font-face 
+    font-family: 'Gilroy'
+    src: local('Gilroy Regular'), local('Gilroy-Regular'),
+    src: url('../fonts/Gilroy/Gilroy-Regular.woff2') format('woff2'),
+    src: url('../fonts/Gilroy/Gilroy-Regular.woff') format('woff'),
+    src: url('../fonts/Gilroy/Gilroy-Regular.ttf') format('truetype')
+    font-weight: 400
+    font-style: normal
+
+$basic_font: 'Nekst'
+$secondary_font: 'Gilroy'
+
+@mixin flex($direction: row, $content: space-between)
+  display: flex
+  flex-direction: $direction
+  justify-content: $content   
+  flex-wrap: wrap 
+
+@mixin styleText($family: 'Nekst', $size: 54px, $line: 90%, $color: #111111)
+  font-family: $family
+  font-size: $size 
+  line-height: $line
+  color: $color
+  
+.container
+  height: 100vh
+  max-width: 1440px
+  margin: 0 auto
+  padding: 0 48px
+  @include flex(column, center)
+
+.title
+  max-width: 750px
+  @include styleText
+
+.count
+  margin-top: 35px
+  @include flex
+
+  &>div
+    width: 425px
+    display: flex
+    flex-direction: column  
+    position: relative
+
+  &__subTitle
+    @include styleText('Gilroy', 16px, 20px, #575757)
+
+  &__input
+    margin-top: 25px
+    padding: 16px 80px 16px 24px
+    width: 100%
+    height: 68px
+    background: #F3F3F4
+    border-radius: 16px
+    border: none
+    @include styleText($size: 30px, $color: #575757)
+
+    &:focus
+      outline: none
+
+  &__range
+    cursor: pointer
+    position: absolute
+    top: 111px
+    left: 24px
+    width: 345px
+    // -webkit-appearance: none
+    // outline: none
+    // background-color: #E1E1E1
+    height: 10px
+    -webkit-appearance: none
+    appearance: none
+
+    &::-webkit-progress-bar 
+     background-color: #eee
+     border-radius: 2px
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset
+
+    &[value]::-webkit-progress-value 
+      background-image:
+          -webkit-linear-gradient:(-45deg,transparent 33%, rgba(0, 0, 0, .1) 33%, rgba(0,0, 0, .1) 66%, transparent 66%),
+          -webkit-linear-gradient:(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, .25)),
+          -webkit-linear-gradient:(left, #09c, #f44)
+
+      border-radius: 2px
+      background-size: 35px 20px, 100% 100%, 100% 100%
+
+    // &::-webkit-slider-thumb
+    //   cursor: pointer
+    //   -webkit-appearance: none
+    //   background: #FF9514
+    //   height: 20px
+    //   width: 20px
+    //   border-radius: 50%
+
+    //   &:hover
+    //     height: 24px
+    //     width: 24px
+
+.result
+  margin-top: 45px
+  @include flex
