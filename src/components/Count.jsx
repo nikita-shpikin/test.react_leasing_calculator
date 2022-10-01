@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 export default function Count() {
   const [priceValue, setPriceValue] = useState(0);
-  const [firstValue, setFirstValue] = useState(0);
+  const [feeValue, setFeeValue] = useState(0);
+  const [termValue, setTermValue] = useState(0);
 
   return (
     <div className='count'>
@@ -31,23 +32,37 @@ export default function Count() {
         <input
           style={{
             background: `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
-              ((firstValue - 10) / (60 - 10)) * 100
+              ((feeValue - 10) / (60 - 10)) * 100
             )}%, #E1E1E1 ${
-              Math.floor((firstValue - 10) / (60 - 10)) * 100
+              Math.floor((feeValue - 10) / (60 - 10)) * 100
             }%, #E1E1E1 100%)`
           }}
-          defaultValue={firstValue}
+          defaultValue={feeValue}
           className='count__range'
           type='range'
           min={10}
           max={60}
-          onChange={e => setFirstValue(+e.target.value)}
+          onChange={e => setFeeValue(+e.target.value)}
         />
       </div>
       <div>
         <span className='count__subTitle'>Срок лизинга</span>
         <input className='count__input' type='text' />
-        <input className='count__range' type='range' min={1} max={60} />
+        <input
+          style={{
+            background: `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
+              ((termValue - 1) / (60 - 1)) * 100
+            )}%, #E1E1E1 ${
+              Math.floor((termValue - 1) / (60 - 1)) * 100
+            }%, #E1E1E1 100%)`
+          }}
+          defaultValue={termValue}
+          className='count__range'
+          type='range'
+          min={1}
+          max={60}
+          onChange={e => setTermValue(+e.target.value)}
+        />
       </div>
     </div>
   );
