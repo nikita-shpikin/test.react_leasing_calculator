@@ -33,8 +33,8 @@ function App() {
   ]);
 
   const getFee = e => {
-    let sum = (priceValue / 1_000_000) * e;
-    setFeeValue(sum);
+    let findPercentage = (priceValue / 1_000_000) * e;
+    setFeeValue(findPercentage);
   };
 
   const getPrice = (e, min, max, setValue) => {

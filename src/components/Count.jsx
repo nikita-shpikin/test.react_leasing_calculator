@@ -15,7 +15,6 @@ export default function Count({ text, min, max, errorValue, id }) {
   } = useContext(valueContext);
 
   let value = null;
-  let sum = null;
   if (id === 1) {
     value = priceValue;
   }
@@ -34,10 +33,10 @@ export default function Count({ text, min, max, errorValue, id }) {
     }%, #E1E1E1 100%)`,
 
     `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
-      (feeValue - min) / (max - min) / 160
-    )}%, #E1E1E1 ${
-      Math.floor((feeValue - min) / (max - min)) / 160
-    }%, #E1E1E1 100%)`,
+      ((value - min) / (max - min)) * 100
+    )}%, #E1E1E1 ${Math.floor(
+      ((value - min) / (max - min)) * 100
+    )}%, #E1E1E1 100%)`,
 
     `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
       ((value - min) / (max - min)) * 100
