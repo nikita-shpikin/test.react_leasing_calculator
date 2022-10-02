@@ -43,10 +43,10 @@ $secondary_font: 'Gilroy'
   @include styleText
 
 .counts
-  margin-top: 35px
   @include flex
 
   &>div
+    margin-top: 32px
     width: 425px
     display: flex
     flex-direction: column  
@@ -74,7 +74,7 @@ $secondary_font: 'Gilroy'
     position: absolute
     top: 111px
     left: 24px
-    width: 345px
+    width: 80%
     height: 10px
     -webkit-appearance: none
     appearance: none
@@ -107,26 +107,46 @@ $secondary_font: 'Gilroy'
     width: 65px
     text-align: center
     @include styleText('Nekst', 30px, 36px, #575757)
-
+    
+    &_percent
+      top: 50%,
+      font-size: 20px,
+      background: #EBEBEC,
+      border-radius: 16px,
+      padding: 5px
+  
+  .counts
+    @include flex(column)
+    align-items: center
+    >div
+      width: 100%
+    
 .result
-  margin-top: 45px
   @include flex
+  align-items: center
+  flex-wrap: nowrap
 
   &-block
-    height: 80px
-    @include flex(column)
-    flex-basis: 31%
+    @include flex
+    width: 68%
+
+    &>div
+      margin-top: 45px
+      width: 50%
+      @include flex(column)
 
     &__title
       @include styleText('Nekst', 54px, 90%, #575757 )      
 
     &__subTitle
       @include styleText('Gilroy', 16px, 20px, #575757)
-
+      margin-bottom: 8px
 
   &__button
+    margin-top: 45px
+    height: 68px
+    width: 426px
     @include styleText('Nekst', 30px, 36px, #fff)
-    flex-basis: 31%
     background: #FF9514
     border-radius: 40px
     border: none
@@ -134,4 +154,86 @@ $secondary_font: 'Gilroy'
 
     &:hover
       background: #111111
+ 
+@media screen and ( max-width: 1024px )
+  .container
+    height: 1024px
+  .counts
+
+    &>div
+      width: 100%
+
+  .result
+    @include flex(column)
+    flex-wrap: nowrap
+    align-items: flex-start
+
+    &-block
+      width: 100%
+      @include flex
+      flex-wrap: nowrap
+
+      &__title
+        color: #333333
+
+    &__button
+      width: 345px
+
+@media screen and ( max-width: 768px )
+  .container
+    padding: 0 36px
+  
+@media screen and ( max-width: 550px )
+  .container
+    height: 800px
+    padding: 0 21px
+  
+  .title
+    @include styleText($size: 34px)
+  
+  .counts
+
+    &__input
+      margin-top: 8px
+      height: 60px
+      color: #333E48
+
+    &__subTitle
+      @include styleText($size: 14px, $color: #333E48)
+
+    &__range
+      top: 78px
+
+    &__element
+      position: absolute
+      top: 38%  
+
+  .result
+    height: 253px
+    justify-content: center
+    align-items: center
+
+    &-block
+      flex-direction: column  
+    
+      &>div
+        width: 100%
+        margin-top: 29px
+
+      &__subTitle
+        font-size: 14px
+
+      &__title
+        font-size: 22px
+
+    &__button
+      margin-top: 32px
+      width: 280px
+      font-size: 22px
+      
+
+
+
+
+
       

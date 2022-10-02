@@ -75,18 +75,9 @@ export default function Count({ text, min, max, errorValue, id }) {
         onInput={e => getValue(+e.target.value)}
       />
       <span
-        className='counts__element'
-        style={
-          id === 2
-            ? {
-                top: '50%',
-                fontSize: '20px',
-                background: '#EBEBEC',
-                borderRadius: '16px',
-                padding: '5px'
-              }
-            : {}
-        }
+        className={`counts__element ${
+          id === 2 ? ' counts__element_percent' : ''
+        }`}
       >
         {element}
       </span>

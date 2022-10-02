@@ -90,18 +90,20 @@ function App() {
 
         <div className='result'>
           <div className='result-block'>
-            <span className='result-block__subTitle'>
-              Сумма договора лизинга
-            </span>
-            <span className='result-block__title'>
-              {feeValue + termValue * monthPay}
-            </span>
-          </div>
-          <div className='result-block'>
-            <span className='result-block__subTitle'>
-              Ежемесячный платеж от
-            </span>
-            <span className='result-block__title'>{monthPay}</span>
+            <div>
+              <span className='result-block__subTitle'>
+                Сумма договора лизинга
+              </span>
+              <span className='result-block__title'>
+                {feeValue + termValue * monthPay}
+              </span>
+            </div>
+            <div>
+              <span className='result-block__subTitle'>
+                Ежемесячный платеж от
+              </span>
+              <span className='result-block__title'>{monthPay}</span>
+            </div>
           </div>
           <button className='result__button'>Оставить заявку</button>
         </div>
