@@ -53,6 +53,11 @@ function App() {
     setTermValue(e);
   };
 
+  const monthPay = Math.round(
+    (priceValue - feeValue) *
+      ((0.035 * Math.pow(1 + 0.035, termValue)) /
+        (Math.pow(1 + 0.035, termValue) - 1))
+  );
   return (
     <valueContext.Provider
       value={{
@@ -88,13 +93,15 @@ function App() {
             <span className='result-block__subTitle'>
               Сумма договора лизинга
             </span>
-            <span className='result-block__title'>4 467 313</span>
+            <span className='result-block__title'>
+              {feeValue + termValue * monthPay}
+            </span>
           </div>
           <div className='result-block'>
             <span className='result-block__subTitle'>
               Ежемесячный платеж от
             </span>
-            <span className='result-block__title'>114 455</span>
+            <span className='result-block__title'>{monthPay}</span>
           </div>
           <button className='result__button'>Оставить заявку</button>
         </div>
