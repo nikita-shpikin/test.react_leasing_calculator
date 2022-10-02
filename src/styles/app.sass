@@ -53,6 +53,7 @@ $secondary_font: 'Gilroy'
     position: relative
 
   &__subTitle
+    position: relative
     @include styleText('Gilroy', 16px, 20px, #575757)
 
   &__input
@@ -98,7 +99,39 @@ $secondary_font: 'Gilroy'
     margin-top: 10px
     color:#FF9514
     text-align: center
+  
+  &__element
+    position: absolute
+    top: 55%
+    right: 1%
+    width: 65px
+    text-align: center
+    @include styleText('Nekst', 30px, 36px, #575757)
 
 .result
   margin-top: 45px
   @include flex
+
+  &-block
+    height: 80px
+    @include flex(column)
+    flex-basis: 31%
+
+    &__title
+      @include styleText('Nekst', 54px, 90%, #575757 )      
+
+    &__subTitle
+      @include styleText('Gilroy', 16px, 20px, #575757)
+
+
+  &__button
+    @include styleText('Nekst', 30px, 36px, #fff)
+    flex-basis: 31%
+    background: #FF9514
+    border-radius: 40px
+    border: none
+    cursor: pointer
+
+    &:hover
+      background: #111111
+      

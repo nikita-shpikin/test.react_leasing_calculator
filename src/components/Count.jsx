@@ -2,27 +2,22 @@ import React, { useContext } from 'react';
 import { valueContext } from '../context/context';
 
 export default function Count({ text, min, max, errorValue, id }) {
-  const {
-    priceValue,
-    setPriceValue,
-    feeValue,
-    setFeeValue,
-    termValue,
-    setTermValue,
-    error,
-    getPrice,
-    getFee
-  } = useContext(valueContext);
+  let { priceValue, feeValue, termValue, error, getPrice, getFee, getTerm } =
+    useContext(valueContext);
 
+  let element = null;
   let value = null;
   if (id === 1) {
     value = priceValue;
+    element = '₽';
   }
   if (id === 2) {
     value = feeValue;
+    element = Math.floor(feeValue / 10000) + '%';
   }
   if (id === 3) {
     value = termValue;
+    element = 'мес.';
   }
 
   const styles = [
@@ -48,16 +43,11 @@ export default function Count({ text, min, max, errorValue, id }) {
   const style =
     id === 1 ? styles[0] : id === 2 ? styles[1] : id === 3 ? styles[2] : '';
 
-  const getTerm = e => {
-    console.log(e);
-    setTermValue(e);
-  };
-
   const getValue = e => {
     if (id === 1) {
-      getPrice(e, min, max, setPriceValue);
+      getPrice(e, min, max);
     } else if (id === 2) {
-      getFee(e);
+      getFee(e, min, max);
     } else if (id === 3) {
       getTerm(e);
     }
@@ -84,6 +74,22 @@ export default function Count({ text, min, max, errorValue, id }) {
         onChange={e => getValue(+e.target.value)}
         onInput={e => getValue(+e.target.value)}
       />
+      <span
+        className='counts__element'
+        style={
+          id === 2
+            ? {
+                top: '50%',
+                fontSize: '20px',
+                background: '#EBEBEC',
+                borderRadius: '16px',
+                padding: '5px'
+              }
+            : {}
+        }
+      >
+        {element}
+      </span>
     </div>
   );
 }

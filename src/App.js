@@ -8,7 +8,7 @@ function App() {
   const [feeValue, setFeeValue] = useState(100_000);
   const [termValue, setTermValue] = useState(1);
   const [error, setError] = useState(false);
-  const [state, setState] = useState([
+  const [state] = useState([
     {
       id: 1,
       text: 'Стоимость автомобиля',
@@ -32,12 +32,7 @@ function App() {
     }
   ]);
 
-  const getFee = e => {
-    let findPercentage = (priceValue / 1_000_000) * e;
-    setFeeValue(findPercentage);
-  };
-
-  const getPrice = (e, min, max, setValue) => {
+  const getPrice = (e, min, max) => {
     if (e >= min && e <= max) {
       setError(false);
       setPriceValue(e);
@@ -47,6 +42,15 @@ function App() {
       setPriceValue(e);
       setError(true);
     }
+  };
+
+  const getFee = (e, min, max) => {
+    let findPercentage = (priceValue / 1_000_000) * e;
+    setFeeValue(findPercentage);
+  };
+
+  const getTerm = e => {
+    setTermValue(e);
   };
 
   return (
@@ -60,7 +64,8 @@ function App() {
         setTermValue,
         error,
         getPrice,
-        getFee
+        getFee,
+        getTerm
       }}
     >
       <div className='container'>
@@ -79,15 +84,19 @@ function App() {
         </div>
 
         <div className='result'>
-          <div>
-            <span>Сумма договора лизинга</span>
-            <span>4 467 313</span>
+          <div className='result-block'>
+            <span className='result-block__subTitle'>
+              Сумма договора лизинга
+            </span>
+            <span className='result-block__title'>4 467 313</span>
           </div>
-          <div>
-            <span>Ежемесячный платеж от</span>
-            <span>114 455</span>
+          <div className='result-block'>
+            <span className='result-block__subTitle'>
+              Ежемесячный платеж от
+            </span>
+            <span className='result-block__title'>114 455</span>
           </div>
-          <button>Оставить заявку</button>
+          <button className='result__button'>Оставить заявку</button>
         </div>
       </div>
     </valueContext.Provider>
