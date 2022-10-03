@@ -1,78 +1,74 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { valueContext } from '../context/context';
 
-export default function Count({ text, min, max, errorValue, id }) {
-  let { priceValue, feeValue, termValue, error, getPrice, getFee, getTerm } =
-    useContext(valueContext);
-
-  let element = null;
-  let value = null;
-  if (id === 1) {
-    value = priceValue;
-    element = '₽';
-  }
+export default function Count({
+  id,
+  min,
+  max,
+  text,
+  errorValue,
+  element,
+  value
+}) {
+  const { setState, state } = useContext(valueContext);
+  const [error, setError] = useState(false);
   if (id === 2) {
-    value = feeValue;
-    element = Math.floor(feeValue / 10000) + '%';
-  }
-  if (id === 3) {
-    value = termValue;
-    element = 'мес.';
+    element = Math.floor(value / 10000) + '%';
   }
 
-  const styles = [
-    `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
-      ((value - min) / (max - min)) * 100
-    )}%, #E1E1E1 ${
-      Math.floor((value - min) / (max - min)) * 100
-    }%, #E1E1E1 100%)`,
-
-    `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
-      ((value - min) / (max - min)) * 100
-    )}%, #E1E1E1 ${Math.floor(
-      ((value - min) / (max - min)) * 100
-    )}%, #E1E1E1 100%)`,
-
-    `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
-      ((value - min) / (max - min)) * 100
-    )}%, #E1E1E1 ${
-      Math.floor((value - min) / (max - min)) * 100
-    }%, #E1E1E1 100%)`
-  ];
-
-  const style =
-    id === 1 ? styles[0] : id === 2 ? styles[1] : id === 3 ? styles[2] : '';
-
-  const getValue = e => {
-    if (id === 1) {
-      getPrice(e, min, max);
-    } else if (id === 2) {
-      getFee(e, min, max);
-    } else if (id === 3) {
-      getTerm(e);
+  const getValues = e => {
+    if (!isNaN(e)) {
+      const newState = state.map(obj => {
+        if (obj.id === id) {
+          return { ...obj, value: e };
+        } else {
+          return obj;
+        }
+      });
+      setState(newState);
+      if (e >= min && e <= max) {
+        setError(false);
+        const newState = state.map(obj => {
+          if (obj.id === id) {
+            return { ...obj, value: e };
+          } else {
+            return obj;
+          }
+        });
+        setState(newState);
+      } else {
+        setError(true);
+      }
+    } else {
+      setError(true);
     }
   };
+
   return (
     <div>
       <span className='counts__subTitle'>{text}</span>
-
       <input
         className='counts__input'
         type='text'
         value={value}
-        onChange={e => getValue(+e.target.value)}
+        onInput={e => getValues(+e.target.value)}
       />
       {error && <span className='counts__error'>{errorValue}</span>}
 
       <input
-        style={{ background: style }}
-        defaultValue={value}
+        style={{
+          background: `linear-gradient(to right, #ff9800 0%, #ff9800 ${Math.floor(
+            ((value - min) / (max - min)) * 100
+          )}%, #E1E1E1 ${
+            Math.floor((value - min) / (max - min)) * 100
+          }%, #E1E1E1 100%)`
+        }}
         className='counts__range'
         type='range'
         min={min}
         max={max}
-        onChange={e => getValue(+e.target.value)}
-        onInput={e => getValue(+e.target.value)}
+        defaultValue={value}
+        onChange={e => getValues(+e.target.value)}
       />
       <span
         className={`counts__element ${

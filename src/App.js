@@ -1,78 +1,70 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Count from './components/Count';
+import Result from './components/Result';
 import './styles/app.sass';
-import { valueContext } from './context/context.js';
+import { valueContext } from './context/context';
 
 function App() {
-  const [priceValue, setPriceValue] = useState(1_000_000);
-  const [feeValue, setFeeValue] = useState(100_000);
-  const [termValue, setTermValue] = useState(1);
-  const [error, setError] = useState(false);
-  const [state] = useState([
+  const [state, setState] = useState([
     {
       id: 1,
       text: 'Стоимость автомобиля',
       errorValue: 'Введите стоимость автомобиля от 1 до 6 миллионов',
       max: 6_000_000,
-      min: 1_000_000
+      min: 1_000_000,
+      element: '₽',
+      value: 1_000_000
     },
     {
       id: 2,
       text: 'Первоначальный взнос',
       errorValue: 'Введите процент взнос от 10 до 60 процентов',
       max: 600_000,
-      min: 100_000
+      min: 100_000,
+      element: '%',
+      value: 100_000
     },
     {
       id: 3,
       text: 'Срок лизинга',
       errorValue: 'Введите месяц лизинга от 1 до 60 месяцев',
       max: 60,
-      min: 1
+      min: 1,
+      element: 'мес.',
+      value: 1
     }
   ]);
 
-  const getPrice = (e, min, max) => {
-    if (e >= min && e <= max) {
-      setError(false);
-      setPriceValue(e);
-    } else if (isNaN(e)) {
-      setError(true);
-    } else {
-      setPriceValue(e);
-      setError(true);
-    }
-  };
+  const [priceCar, setPriceCar] = useState(1_000_000);
+  const [initialFee, setInitialFee] = useState(100_000);
+  const [leaseTerm, setLeaseTerm] = useState(1);
 
-  const getFee = (e, min, max) => {
-    let findPercentage = (priceValue / 1_000_000) * e;
-    setFeeValue(findPercentage);
-  };
+  useEffect(() => {
+    state.map(obj => {
+      if (obj.value > obj.max || obj.value < obj.min) {
+        return;
+      } else {
+        if (obj.id === 1) {
+          setPriceCar(obj.value);
+        } else if (obj.id === 2) {
+          setInitialFee(obj.value);
+        } else if (obj.id === 3) {
+          setLeaseTerm(obj.value);
+        }
+      }
+    });
+  }, [state]);
 
-  const getTerm = e => {
-    setTermValue(e);
-  };
-
-  const monthPay = Math.round(
-    (priceValue - feeValue) *
-      ((0.035 * Math.pow(1 + 0.035, termValue)) /
-        (Math.pow(1 + 0.035, termValue) - 1))
+  const monthPay = Math.floor(
+    (priceCar - initialFee) *
+      ((0.035 * Math.pow(1 + 0.035, leaseTerm)) /
+        (Math.pow(1 + 0.035, leaseTerm) - 1))
   );
+
+  const sumPay = initialFee + leaseTerm * monthPay;
+
   return (
-    <valueContext.Provider
-      value={{
-        priceValue,
-        setPriceValue,
-        feeValue,
-        setFeeValue,
-        termValue,
-        setTermValue,
-        error,
-        getPrice,
-        getFee,
-        getTerm
-      }}
-    >
+    <valueContext.Provider value={{ setState, state }}>
       <div className='container'>
         <h1 className='title'>Рассчитайте стоимость автомобиля в лизинг</h1>
         <div className='counts'>
@@ -80,32 +72,17 @@ function App() {
             <Count
               id={count.id}
               key={count.id}
+              min={count.min}
+              max={count.max}
               text={count.text}
               errorValue={count.errorValue}
-              max={count.max}
-              min={count.min}
+              element={count.element}
+              value={count.value}
             />
           ))}
         </div>
-
         <div className='result'>
-          <div className='result-block'>
-            <div>
-              <span className='result-block__subTitle'>
-                Сумма договора лизинга
-              </span>
-              <span className='result-block__title'>
-                {feeValue + termValue * monthPay}
-              </span>
-            </div>
-            <div>
-              <span className='result-block__subTitle'>
-                Ежемесячный платеж от
-              </span>
-              <span className='result-block__title'>{monthPay}</span>
-            </div>
-          </div>
-          <button className='result__button'>Оставить заявку</button>
+          <Result monthPay={monthPay} sumPay={sumPay} />
         </div>
       </div>
     </valueContext.Provider>
