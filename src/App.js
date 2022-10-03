@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Count from './components/Count';
-import Result from './components/Result';
+import Form from './components/Form';
 import './styles/app.sass';
 import { valueContext } from './context/context';
 
@@ -40,9 +40,9 @@ function App() {
   const [leaseTerm, setLeaseTerm] = useState(1);
 
   useEffect(() => {
-    state.map(obj => {
+    state.forEach(obj => {
       if (obj.value > obj.max || obj.value < obj.min) {
-        return;
+        return false;
       } else {
         if (obj.id === 1) {
           setPriceCar(obj.value);
@@ -81,9 +81,7 @@ function App() {
             />
           ))}
         </div>
-        <div className='result'>
-          <Result monthPay={monthPay} sumPay={sumPay} />
-        </div>
+        <Form monthPay={monthPay} sumPay={sumPay} />
       </div>
     </valueContext.Provider>
   );
