@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function Form({ monthPay, sumPay }) {
-  const data = { monthPay: monthPay, sumPay: sumPay };
+export default function Form({
+  monthPay,
+  sumPay,
+  leaseTerm,
+  initialFee,
+  priceCar,
+  initailPaymentPercent
+}) {
+  const [loader, setLoader] = useState(false);
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      car_coast: priceCar,
+      initail_payment: initialFee,
+      initail_payment_percent: initailPaymentPercent,
+      lease_term: leaseTerm,
+      total_sum: sumPay,
+      monthly_payment_from: monthPay
+    })
+  };
 
   const submitHandler = e => {
-    fetch('https://eoj3r7f3r4ef6v4.m.pipedream.net', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    e.event.preventDefault();
+    e.preventDefault();
+    setLoader(true);
+    fetch('https://eoj3r7f3r4ef6v4.m.pipedream.net', requestOptions).then(
+      data => console.log(data),
+      setLoader(false)
+    );
   };
 
   return (
@@ -31,8 +49,8 @@ export default function Form({ monthPay, sumPay }) {
       <input
         type='submit'
         className='result__button'
-        value={'Оставить заявку'}
-        onSubmit={submitHandler}
+        value={loader ? 'loader' : 'Оставить заявку'}
+        onClick={event => submitHandler(event)}
       />
     </form>
   );

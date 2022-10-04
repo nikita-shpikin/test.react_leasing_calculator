@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Count from './components/Count';
 import Form from './components/Form';
 import './styles/app.sass';
 import { valueContext } from './context/context';
 
 function App() {
+  const initailPaymentPercent = useRef(10);
   const [state, setState] = useState([
     {
       id: 1,
@@ -48,6 +49,7 @@ function App() {
           setPriceCar(obj.value);
         } else if (obj.id === 2) {
           setInitialFee(obj.value);
+          initailPaymentPercent.current = Math.floor(obj.value / 10000);
         } else if (obj.id === 3) {
           setLeaseTerm(obj.value);
         }
@@ -81,7 +83,14 @@ function App() {
             />
           ))}
         </div>
-        <Form monthPay={monthPay} sumPay={sumPay} />
+        <Form
+          monthPay={monthPay}
+          sumPay={sumPay}
+          priceCar={priceCar}
+          initialFee={initialFee}
+          leaseTerm={leaseTerm}
+          initailPaymentPercent={initailPaymentPercent.current}
+        />
       </div>
     </valueContext.Provider>
   );

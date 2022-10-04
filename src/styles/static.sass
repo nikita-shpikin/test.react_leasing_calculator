@@ -1,0 +1,33 @@
+@font-face 
+    font-family: 'Nekst'
+    src: local('Nekst Black'), local('Nekst-Black'), 
+    src: url('../fonts/Nekst/Nekst-Black.woff2') format('woff2'),
+    src: url('../fonts/Nekst/Nekst-Black.woff') format('woff'),
+    src: url('../fonts/Nekst/Nekst-Black.ttf') format('truetype'),
+    font-weight: 900,
+    font-style: normal
+  
+@font-face 
+    font-family: 'Gilroy'
+    src: local('Gilroy Regular'), local('Gilroy-Regular'),
+    src: url('../fonts/Gilroy/Gilroy-Regular.woff2') format('woff2'),
+    src: url('../fonts/Gilroy/Gilroy-Regular.woff') format('woff'),
+    src: url('../fonts/Gilroy/Gilroy-Regular.ttf') format('truetype')
+    font-weight: 400
+    font-style: normal
+
+$basic_font: 'Nekst'
+$secondary_font: 'Gilroy'
+
+@mixin flex($direction: row, $content: space-between)
+  display: flex
+  flex-direction: $direction
+  justify-content: $content   
+  flex-wrap: wrap 
+
+@mixin styleText($family: 'Nekst', $size: 54px, $line: 90%, $color: #111111)
+  font-family: $family
+  font-size: $size 
+  line-height: $line
+  color: $color
+  

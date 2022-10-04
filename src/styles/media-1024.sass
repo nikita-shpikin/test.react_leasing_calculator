@@ -1,0 +1,23 @@
+@media screen and ( max-width: 1024px )
+  .container
+    height: 1024px
+  .counts
+
+    &>div
+      width: 100%
+
+  .result
+    @include flex(column)
+    flex-wrap: nowrap
+    align-items: flex-start
+
+    &-block
+      width: 100%
+      @include flex
+      flex-wrap: nowrap
+
+      &__title
+        color: #333333
+
+    &__button
+      width: 345px
