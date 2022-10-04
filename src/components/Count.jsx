@@ -53,7 +53,7 @@ export default function Count({
         value={value}
         onInput={e => getValues(+e.target.value)}
       />
-      {error && <span className='counts__error'>{errorValue}</span>}
+      <span className='counts__error'>{error && errorValue}</span>
 
       <input
         style={{
