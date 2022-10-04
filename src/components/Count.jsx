@@ -13,7 +13,9 @@ export default function Count({
   const { setState, state } = useContext(valueContext);
   const [error, setError] = useState(false);
   if (id === 2) {
-    element = Math.floor(value / 10000) + '%';
+    if (value >= 100_000 && value <= 600_000) {
+      element = Math.floor(value / 10000) + '%';
+    }
   }
 
   const getValues = e => {

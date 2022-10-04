@@ -25,13 +25,11 @@ export default function Form({
   };
 
   const submitHandler = async e => {
-    // e.preventDefault();
     setLoading(true);
-    await fetch(
-      'https://eoj3r7f3r4ef6v4.m.pipedream.nets',
-      requestOptions
-    ).then(data => console.log(data));
-    setLoading(false);
+    await fetch('https://eoj3r7f3r4ef6v4.m.pipedream.net', requestOptions)
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -52,6 +50,7 @@ export default function Form({
         type='submit'
         className='result__button'
         onClick={event => submitHandler(event)}
+        disabled={loading}
       >
         {loading ? <Loader /> : 'Оставить заявку'}
       </button>
