@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Loader from './UI/Loader';
 
 export default function Form({
   monthPay,
@@ -8,7 +9,7 @@ export default function Form({
   priceCar,
   initailPaymentPercent
 }) {
-  const [loader, setLoader] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const requestOptions = {
     method: 'POST',
@@ -23,13 +24,14 @@ export default function Form({
     })
   };
 
-  const submitHandler = e => {
-    e.preventDefault();
-    setLoader(true);
-    fetch('https://eoj3r7f3r4ef6v4.m.pipedream.net', requestOptions).then(
-      data => console.log(data),
-      setLoader(false)
-    );
+  const submitHandler = async e => {
+    // e.preventDefault();
+    setLoading(true);
+    await fetch(
+      'https://eoj3r7f3r4ef6v4.m.pipedream.nets',
+      requestOptions
+    ).then(data => console.log(data));
+    setLoading(false);
   };
 
   return (
@@ -46,12 +48,13 @@ export default function Form({
         </div>
       </div>
 
-      <input
+      <button
         type='submit'
         className='result__button'
-        value={loader ? 'loader' : 'Оставить заявку'}
         onClick={event => submitHandler(event)}
-      />
+      >
+        {loading ? <Loader /> : 'Оставить заявку'}
+      </button>
     </form>
   );
 }
