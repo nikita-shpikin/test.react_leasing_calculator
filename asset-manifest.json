@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/test.react_leasing_calculator/static/css/main.3f9d443f.css",
-    "main.js": "/test.react_leasing_calculator/static/js/main.568254ae.js",
+    "main.js": "/test.react_leasing_calculator/static/js/main.07b7dd29.js",
     "static/media/Nekst-Black.ttf": "/test.react_leasing_calculator/static/media/Nekst-Black.dffaebf93d38d4c41536.ttf",
     "static/media/Gilroy-Regular.ttf": "/test.react_leasing_calculator/static/media/Gilroy-Regular.fa652e766b6a85a1f9cb.ttf",
     "static/media/Nekst-Black.woff": "/test.react_leasing_calculator/static/media/Nekst-Black.f0e2921efcf1112b1749.woff",
@@ -10,10 +10,10 @@
     "static/media/Gilroy-Regular.woff2": "/test.react_leasing_calculator/static/media/Gilroy-Regular.f6c9931fabe5a6eb3307.woff2",
     "index.html": "/test.react_leasing_calculator/index.html",
     "main.3f9d443f.css.map": "/test.react_leasing_calculator/static/css/main.3f9d443f.css.map",
-    "main.568254ae.js.map": "/test.react_leasing_calculator/static/js/main.568254ae.js.map"
+    "main.07b7dd29.js.map": "/test.react_leasing_calculator/static/js/main.07b7dd29.js.map"
   },
   "entrypoints": [
     "static/css/main.3f9d443f.css",
-    "static/js/main.568254ae.js"
+    "static/js/main.07b7dd29.js"
   ]
 }
